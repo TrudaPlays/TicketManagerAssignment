@@ -227,6 +227,19 @@ namespace TicketManagerAssignment
                 manager.SaveTickets(path);
                 Console.WriteLine($"Saved to {Path.GetFullPath(path)}");
             }
+
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine("Access denied. Common reasons:");
+                Console.WriteLine("- You entered a folder path instead of a file (missing filename like tickets.csv)");
+                Console.WriteLine("- No permission to write there (try Desktop or Documents)");
+                Console.WriteLine("- File/folder is open in another program");
+                Console.WriteLine($"Details: {ex.Message}");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.WriteLine("The folder part of the path does not exist. Please check and try again.");
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Save failed: {ex.Message}");
